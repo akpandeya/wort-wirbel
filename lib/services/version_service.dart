@@ -7,9 +7,9 @@ class VersionService {
   /// Get the application version from build-time configuration
   static String getAppVersion() {
     // This will be injected at build time via --dart-define=APP_VERSION
-    const String? buildVersion = String.fromEnvironment('APP_VERSION');
+    const String buildVersion = String.fromEnvironment('APP_VERSION');
 
-    if (buildVersion != null && buildVersion.isNotEmpty) {
+    if (buildVersion.isNotEmpty) {
       return buildVersion;
     }
 

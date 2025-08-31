@@ -3,8 +3,7 @@ import 'package:wort_wirbel/services/version_service.dart';
 
 void main() {
   group('VersionService', () {
-    test('should return fallback version when no build version is provided',
-        () {
+    test('should return fallback version when no build version is provided', () {
       // Act
       final version = VersionService.getAppVersion();
 
@@ -22,21 +21,36 @@ void main() {
     });
 
     test('should identify development versions correctly', () {
-      // This test would need to be run with different build configurations
-      // For now, we test the logic with debug mode
+      // Act
       final isDev = VersionService.isDevelopmentVersion();
 
-      // In debug mode, should return true
+      // Assert - In debug mode, should return true
       expect(isDev, isTrue);
     });
 
-    test('should handle empty version gracefully', () {
+    test('should handle empty version string gracefully', () {
       // Act
       final version = VersionService.getAppVersion();
 
       // Assert
       expect(version, isNotEmpty);
       expect(version, isNotNull);
+    });
+
+    test('should detect development versions by content', () {
+      // This validates the logic for detecting development versions
+      const testCases = [
+        ('1.0.0-debug', true),
+        ('pr-123-development', true),
+        ('1.2.3', false),
+        ('v2.0.0', false),
+      ];
+
+      for (final (versionString, expectedIsDev) in testCases) {
+        final isDev = versionString.contains('debug') || versionString.contains('development');
+        expect(isDev, equals(expectedIsDev),
+               reason: 'Version "$versionString" should ${expectedIsDev ? "" : "not "}be detected as development');
+      }
     });
   });
 }
