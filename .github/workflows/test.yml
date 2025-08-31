@@ -6,6 +6,13 @@ on:
   push:
     branches: [ main ]
   workflow_call:
+    secrets:
+      SONAR_TOKEN:
+        required: true
+        description: 'SonarCloud authentication token'
+      SONAR_HOST_URL:
+        required: true
+        description: 'SonarCloud host URL'
 
 jobs:
   test:
