@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # Flutter Web Development Server
+  wort-wirbel-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: 0  # Use the first stage (Flutter build environment)
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - /app/build  # Exclude build directory from volume mount
+    working_dir: /app
+    command: flutter run -d web-server --web-hostname 0.0.0.0 --web-port 8080
+    environment:
+      - FLUTTER_WEB_AUTO_DETECT=true
+    profiles:
+      - dev
+
+  # Production Build (using nginx)
+  wort-wirbel-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
+    profiles:
+      - prod
+
+  # Local Development with Hot Reload
+  wort-wirbel-local:
+    image: ghcr.io/cirruslabs/flutter:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - flutter_pub_cache:/root/.pub-cache
+    working_dir: /app
+    command: |
+      sh -c "
+        flutter pub get &&
+        flutter run -d web-server --web-hostname 0.0.0.0 --web-port 8080 --hot
+      "
+    environment:
+      - FLUTTER_WEB_AUTO_DETECT=true
+    profiles:
+      - local
+
+volumes:
+  flutter_pub_cache:
