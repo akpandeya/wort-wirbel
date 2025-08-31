@@ -126,19 +126,46 @@ lib/
 ## 🚢 Deployment
 
 ### Automated Deployment (CI/CD)
-The project uses GitHub Actions for automated deployment:
+The project uses GitHub Actions for automated deployment with Docker images:
 
 1. **Lint & Test**: Code quality checks and test execution
-2. **SonarCloud Analysis**: Code quality and security analysis
-3. **Docker Build**: Containerized build process
-4. **Render Deploy**: Production deployment to Render.com
+2. **SonarCloud Analysis**: Code quality and security analysis  
+3. **Docker Build & Push**: Containerized build process with images pushed to GitHub Container Registry
+4. **Render Deploy**: Production deployment to Render.com using pre-built Docker images
+
+#### Docker Image Registry
+- **Registry**: GitHub Container Registry (`ghcr.io`)
+- **Image**: `ghcr.io/akpandeya/wort-wirbel`
+- **Tags**: 
+  - `latest` - Latest main branch build
+  - `main-{sha}` - Specific commit builds
+  - `v{version}` - Tagged releases
 
 ### Manual Deployment
+
+#### Local Docker Commands
 ```bash
-make prod-build        # Build production Docker image
-make prod-run          # Run production container locally
-make prod-stop         # Stop production container
+make prod-build         # Build production Docker image locally
+make prod-build-ghcr    # Build and tag for GitHub Container Registry
+make prod-push          # Push image to registry (requires docker login)
+make prod-run           # Run production container locally
+make prod-stop          # Stop production container
 ```
+
+#### Deploy Specific Versions
+Use the "Deploy Specific Version" GitHub Actions workflow to deploy any previously built image:
+
+1. Go to Actions → Deploy Specific Version → Run workflow
+2. Enter the image tag (e.g., `main-abc1234`, `v1.0.0`, `latest`)
+3. Select target environment (production/staging)
+4. Click "Run workflow"
+
+This allows you to:
+- **Rollback** to previous versions quickly
+- **Deploy specific commits** for testing
+- **Promote** staging builds to production
+
+📖 **For detailed deployment information, see [Docker Deployment Guide](docs/docker-deployment.md)**
 
 ## 🔧 Development Workflow
 

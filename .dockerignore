@@ -1,0 +1,40 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+docs/
+rfcs/
+
+# IDE
+.idea/
+.vscode/
+
+# Build artifacts
+build/
+.dart_tool/
+.packages
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Docker
+docker-compose.yml
+
+# CI/CD
+.github/
+
+# Testing
+coverage/
+test/
+
+# Other
+LICENSE
+*.md
+sonar-project.properties
