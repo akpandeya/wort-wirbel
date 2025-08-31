@@ -28,7 +28,7 @@ wort_wirbel/
 As specified in `pubspec.yaml`:
 - **http: ^1.1.0** - For HTTP requests
 - **idb_shim: ^2.4.1** - For IndexedDB support (offline storage)
-- **flutter_lints: ^3.0.0** - For code linting
+- **flutter_lints: ^6.0.0** - For code linting
 
 ## Features
 
