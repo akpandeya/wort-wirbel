@@ -2,7 +2,7 @@ FROM ghcr.io/cirruslabs/flutter:stable
 
 WORKDIR /app
 
-COPY pubspec.yaml pubspec.lock ./
+COPY pubspec.yaml ./
 
 RUN flutter pub get
 

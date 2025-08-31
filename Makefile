@@ -85,6 +85,12 @@ ci-test: ## Run CI-compatible test suite
 prod-build: ## Build optimized production image
 	docker build -t wort-wirbel:latest .
 
+prod-build-ghcr: ## Build and tag for GitHub Container Registry
+	docker build -t ghcr.io/akpandeya/wort-wirbel:latest .
+
+prod-push: ## Push image to GitHub Container Registry (requires login)
+	docker push ghcr.io/akpandeya/wort-wirbel:latest
+
 prod-run: ## Run production container locally
 	docker run -p 80:80 --name wort-wirbel-prod wort-wirbel:latest
 
