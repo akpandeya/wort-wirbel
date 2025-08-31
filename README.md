@@ -53,6 +53,47 @@ To build for production:
 flutter build web
 ```
 
+## GitHub Actions Workflows
+
+This project includes automated CI/CD workflows that run on GitHub Actions:
+
+### Linting (`lint.yml`)
+- **Triggers**: Pull requests to `main` and pushes to `main`
+- **Actions**: 
+  - Checks code formatting with `dart format`
+  - Runs static analysis with `flutter analyze`
+- **Purpose**: Ensures code quality and consistency
+
+### Testing (`test.yml`)
+- **Triggers**: Pull requests to `main` and pushes to `main`
+- **Actions**:
+  - Runs all Flutter tests with `flutter test`
+  - Generates coverage reports
+  - Uploads coverage to Codecov (optional)
+- **Purpose**: Validates functionality and prevents regressions
+
+### Build and Deploy (`deploy.yml`)
+- **Triggers**: Pushes to `main` branch only
+- **Actions**:
+  - Waits for lint and test workflows to complete successfully
+  - Builds the Flutter web app for production
+  - Deploys to Render hosting platform
+- **Purpose**: Automated deployment of the live application
+
+### Required Secrets
+
+For deployment to work, configure these repository secrets in GitHub:
+- `RENDER_SERVICE_ID`: Your Render service ID
+- `RENDER_API_KEY`: Your Render API key
+- `CODECOV_TOKEN`: (Optional) For coverage reporting
+
+### Workflow Maintenance
+
+- All workflows use Flutter 3.24.0 stable channel
+- Dependencies are cached for faster builds
+- Workflows fail fast on linting or test errors
+- Deploy only occurs after successful lint and test runs
+
 ## Next Steps
 
 The project is ready for development. The empty directories (models, data, widgets) are prepared for:

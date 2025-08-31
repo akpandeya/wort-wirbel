@@ -122,3 +122,4 @@ app.*.symbols
 
 # Flutter Web
 web/flutter_service_worker.js
+.idea/copilotDiffState.xml
