@@ -40,7 +40,6 @@ analysis_benchmark.json
 .packages
 .pub-preload-cache/
 .pub/
-# Ignore specific build directories but allow web build for deployment
 build/android/
 build/ios/
 build/linux/
@@ -52,8 +51,6 @@ build/unit_test_assets/
 build/*.cache.dill.track.dill
 build/last_build_run.json
 build/flutter_assets/
-# Keep build/web/ for deployment - it will be tracked
-!build/web/
 flutter_*.png
 linked_*.ds
 unlinked.ds
