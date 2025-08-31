@@ -9,5 +9,8 @@ void main() {
     expect(find.text('Willkommen to Wort-Wirbel!'), findsOneWidget);
     expect(find.text('Your German flashcard learning journey starts here.'),
         findsOneWidget);
+
+    // Test that version display is shown
+    expect(find.textContaining('v'), findsOneWidget);
   });
 }

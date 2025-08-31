@@ -51,11 +51,20 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Install yq for YAML manipulation
+      run: |
+        sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+        sudo chmod +x /usr/local/bin/yq
+
     - name: Update render.yaml with specific image tag
       run: |
-        sed -i "s|ghcr.io/akpandeya/wort-wirbel:latest|${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.image_tag }}|g" render.yaml
-        echo "Updated render.yaml to use image tag: ${{ inputs.image_tag }}"
+        NEW_IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.image_tag }}"
+        echo "Updating render.yaml to use image: $NEW_IMAGE"
+        yq eval '.services[0].image.url = env(NEW_IMAGE)' -i render.yaml
+        echo "Updated render.yaml:"
         cat render.yaml
+      env:
+        NEW_IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.image_tag }}
 
     - name: Deploy to Render
       uses: JorgeLNJunior/render-deploy@v1.4.4

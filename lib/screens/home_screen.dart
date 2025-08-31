@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/version_display.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -23,6 +24,15 @@ class HomeScreen extends StatelessWidget {
               'Your German flashcard learning journey starts here.',
               style: TextStyle(fontSize: 16),
             ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            VersionDisplay(),
           ],
         ),
       ),

@@ -3,12 +3,6 @@ name: Build and Deploy
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:
-    inputs:
-      version_tag:
-        description: 'Version tag for deployment (e.g., v1.0.0)'
-        required: false
-        type: string
 
 env:
   REGISTRY: ghcr.io
@@ -59,7 +53,6 @@ jobs:
           type=ref,event=branch
           type=sha,prefix={{branch}}-
           type=raw,value=latest,enable={{is_default_branch}}
-          type=raw,value=${{ inputs.version_tag }},enable=${{ inputs.version_tag != '' }}
 
     - name: Build and push Docker image
       id: build
@@ -71,6 +64,8 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
 
   deploy-render:
+        build-args: |
+          VERSION=${{ github.ref_name }}
     name: Deploy to Render
     runs-on: ubuntu-latest
     needs: [build-and-push]
