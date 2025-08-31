@@ -15,7 +15,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
+      with:
+        fetch-depth: 0  # Shallow clones should be disabled for better analysis
+
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
@@ -26,13 +28,15 @@ jobs:
     - name: Get dependencies
       run: flutter pub get
       
+    - name: Analyze code
+      run: flutter analyze --write=./flutter-analyze-report.txt
+      continue-on-error: true
+
     - name: Run tests
       run: flutter test --coverage
-      
-    - name: Upload coverage reports
-      uses: codecov/codecov-action@v4
-      with:
-        file: coverage/lcov.info
-        fail_ci_if_error: false
+
+    - name: Run SonarQube Analysis
+      uses: sonarsource/sonarqube-scan-action@master
       env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
