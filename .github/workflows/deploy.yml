@@ -13,7 +13,10 @@ jobs:
   test:
     name: Run Tests  
     uses: ./.github/workflows/test.yml
-    
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
   build-and-deploy:
     name: Build and Deploy to Render
     runs-on: ubuntu-latest
