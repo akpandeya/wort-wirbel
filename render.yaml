@@ -2,7 +2,18 @@ services:
   - type: web
     name: wort-wirbel
     env: static
-    buildCommand: echo "Build completed by GitHub Actions"
+    buildCommand: |
+      # Install Flutter
+      git clone https://github.com/flutter/flutter.git -b stable --depth 1
+      export PATH="$PATH:`pwd`/flutter/bin"
+      
+      # Configure Flutter
+      flutter config --no-analytics
+      flutter doctor
+      
+      # Build the web app
+      flutter pub get
+      flutter build web --release --web-renderer html
     staticPublishPath: ./build/web
     headers:
       - path: /*
