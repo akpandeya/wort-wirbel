@@ -25,7 +25,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
@@ -39,6 +41,14 @@ jobs:
     - name: Build web app
       run: flutter build web --release
       
+    - name: Commit build files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add build/web/
+        git commit -m "Deploy: Update build files [skip ci]" || exit 0
+        git push
+
     - name: Deploy to Render
       uses: JorgeLNJunior/render-deploy@v1.4.4
       with:
