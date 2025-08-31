@@ -3,7 +3,8 @@ import 'package:wort_wirbel/services/version_service.dart';
 
 void main() {
   group('VersionService', () {
-    test('should return fallback version when no build version is provided', () {
+    test('should return fallback version when no build version is provided',
+        () {
       // Act
       final version = VersionService.getAppVersion();
 
@@ -47,9 +48,11 @@ void main() {
       ];
 
       for (final (versionString, expectedIsDev) in testCases) {
-        final isDev = versionString.contains('debug') || versionString.contains('development');
+        final isDev = versionString.contains('debug') ||
+            versionString.contains('development');
         expect(isDev, equals(expectedIsDev),
-               reason: 'Version "$versionString" should ${expectedIsDev ? "" : "not "}be detected as development');
+            reason:
+                'Version "$versionString" should ${expectedIsDev ? "" : "not "}be detected as development');
       }
     });
   });
