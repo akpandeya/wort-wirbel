@@ -25,11 +25,12 @@ class VersionDisplay extends StatelessWidget {
     return Text(
       version,
       style: textStyle?.copyWith(
-        color: color ?? (isDevelopment ? Colors.orange : Colors.grey),
-      ) ?? TextStyle(
-        fontSize: 12,
-        color: color ?? (isDevelopment ? Colors.orange : Colors.grey),
-      ),
+            color: color ?? (isDevelopment ? Colors.orange : Colors.grey),
+          ) ??
+          TextStyle(
+            fontSize: 12,
+            color: color ?? (isDevelopment ? Colors.orange : Colors.grey),
+          ),
     );
   }
 }

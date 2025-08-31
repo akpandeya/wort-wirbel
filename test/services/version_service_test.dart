@@ -3,7 +3,8 @@ import 'package:wort_wirbel/services/version_service.dart';
 
 void main() {
   group('VersionService', () {
-    test('should return fallback version when no build version is provided', () {
+    test('should return fallback version when no build version is provided',
+        () {
       // Act
       final version = VersionService.getAppVersion();
 
