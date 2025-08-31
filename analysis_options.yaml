@@ -1,0 +1,6 @@
+include: package:flutter_lints/flutter.yaml
+
+# Additional lint rules
+linter:
+  rules:
+    # Add custom rules here
