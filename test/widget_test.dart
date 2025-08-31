@@ -10,6 +10,7 @@ void main() {
 
     // Verify that our home screen loads
     expect(find.text('Willkommen to Wort-Wirbel!'), findsOneWidget);
-    expect(find.text('Your German flashcard learning journey starts here.'), findsOneWidget);
+    expect(find.text('Your German flashcard learning journey starts here.'),
+        findsOneWidget);
   });
 }
