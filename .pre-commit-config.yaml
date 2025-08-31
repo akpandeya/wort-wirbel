@@ -1,0 +1,43 @@
+# Pre-commit hooks for Dart/Flutter code quality
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+
+  - repo: local
+    hooks:
+      - id: dart-format
+        name: Dart Format
+        entry: dart format
+        language: system
+        files: \.dart$
+        args: ['--set-exit-if-changed']
+
+      - id: dart-analyze
+        name: Dart Analyze
+        entry: dart analyze
+        language: system
+        files: \.dart$
+        pass_filenames: false
+
+      - id: flutter-test
+        name: Flutter Test
+        entry: flutter test
+        language: system
+        files: \.dart$
+        pass_filenames: false
+        stages: [commit]
+
+      - id: pubspec-lock-check
+        name: Pubspec Lock Check
+        entry: flutter pub deps
+        language: system
+        files: pubspec\.yaml$
+        pass_filenames: false
