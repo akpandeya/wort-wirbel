@@ -13,6 +13,7 @@ This document outlines the core principles for generating code in this repositor
 * **Comments**:
     * **AVOID obvious comments**. Do not write comments that explain *what* the code is doing if it's clear from the code itself (e.g., `// a for-loop to iterate over products`).
     * **DO write comments to explain the *why***. If a piece of code implements complex business logic, a non-obvious performance optimization, or a workaround for a specific issue, add a comment to explain the reasoning and context.
+    * Always leave newline at EOF.
 
 ---
 
