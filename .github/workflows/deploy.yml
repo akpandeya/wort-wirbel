@@ -4,6 +4,10 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   # Wait for lint and test jobs to complete successfully
   lint:
@@ -25,7 +29,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
@@ -39,6 +45,18 @@ jobs:
     - name: Build web app
       run: flutter build web --release
       
+    - name: Commit build files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add build/web/
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "Deploy: Update build files [skip ci]"
+          git push
+        fi
+
     - name: Deploy to Render
       uses: JorgeLNJunior/render-deploy@v1.4.4
       with:
