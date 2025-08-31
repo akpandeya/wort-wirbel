@@ -49,7 +49,8 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add build/web/
+        # Force add the build/web directory even if it's ignored
+        git add -f build/web/
         if git diff --staged --quiet; then
           echo "No changes to commit"
         else
