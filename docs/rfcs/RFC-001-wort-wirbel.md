@@ -1,6 +1,6 @@
-# RFC-002: Wort-Wirbel - Final Design Specification
-* Author: Wort-Wirbel Project
-* Status: Final
+# RFC-001: Wort-Wirbel - Final Design Specification
+* Author: Avanindra Kumar Pandeya
+* Status: Writing
 * Date: September 1, 2025
 
 ## 1. Summary
@@ -22,7 +22,7 @@ The client is a web application built with Flutter. It is responsible for all us
 The backend is a lightweight, read-only REST API. Its sole purpose is to serve the master vocabulary list to the client. It has no knowledge of users or their progress. This service will be deployed on Render as a Web Service.
 
 ### 3.3 Database (PostgreSQL)
-The database is a PostgreSQL instance (hosted on Render) that contains the master words table. It is the single source of truth for all vocabulary content.
+The database is a PostgreSQL instance (hosted on Supbase) that contains the master words table. It is the single source of truth for all vocabulary content.
 
 ### 3.4 Data Flow
 - On first use, the client app calls the backend API to download the entire word list and populates its local IndexedDB cache.
@@ -55,7 +55,7 @@ The backend will expose one primary endpoint:
   - Query Parameter: `updated_since={timestamp}`. If provided, the API will only return words that have been created or modified after the given ISO 8601 timestamp.
 
 ### 5.3 Database Schema
-The PostgreSQL database will contain a single main table:
+The PostgreSQL database will contain a single main table (Final structure TBD):
 - `words`
   - `id` (Primary Key)
   - `german` (text)
