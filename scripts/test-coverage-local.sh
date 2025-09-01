@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Local script to test coverage generation for SonarQube
 # This script mimics what happens in the CI workflow
