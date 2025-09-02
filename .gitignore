@@ -126,3 +126,6 @@ web/flutter_service_worker.js
 
 # IDE
 .idea/
+
+# Flutter SDK (downloaded during CI)
+flutter/
